@@ -27,7 +27,7 @@ def poly3D(x, y, z, coeff):
 
 
 def create_grid_axis(n, lim):
-    """Create a uniformly spaced axis
+    """Create a uniformly spaced axis.
 
     Args:
         n (int): number of cells
@@ -71,12 +71,13 @@ if __name__ == "__main__":
 
     # Calculate Streamline
 
-    ns = int(1e6)
-    ds = dx[0]/10.
-    s = np.zeros(ns)
+    ns = int(1e4)
+    step_size = 0.1
+    ds = np.zeros(ns)
 
-    xs, n_steps = nb_streamtracer.calc_streamline(xs0, xc, yc, zc, vx, vy, vz,
-                                                  s, ds)
+    xs, n_steps = nb_streamtracer.calc_streamline(xs0,
+                                                  xc, yc, zc, vx, vy, vz,
+                                                  ds, step_size)
     xs = xs[:n_steps]
 
     # Plot Streamline
