@@ -41,7 +41,7 @@ def create_grid_axis(n, lim):
 
     return xb, xc, dx
 
-def generate_grid(n):
+def generate_grid(n, name):
     """Generate the grid spacings and velocity variables.
 
     Args:
@@ -65,9 +65,11 @@ def generate_grid(n):
     Yc, Xc, Zc = np.meshgrid(yc, xc, zc)
 
     # Store polynomial coefficients
-    cx = 2*np.random.rand(3, 3)-1
-    cy = 2*np.random.rand(3, 3)-1
-    cz = 2*np.random.rand(3, 3)-1
+    if(name == 'random'):
+        cx, cy, cz = create_random_poly_coeff()
+    else:
+        cx, cy, cz = load_poly_coeff(name)
+
 
     # Calculate vector field
     vx = poly3D(Xc, Yc, Zc, cx)
@@ -75,3 +77,44 @@ def generate_grid(n):
     vz = poly3D(Xc, Yc, Zc, cz)
 
     return xc, yc, zc, vx, vy, vz
+
+
+def create_random_poly_coeff():
+    """Create random polynomial coefficients for velocity field.
+
+    Returns:
+        np.array: arrays containing the coefficients for vx, vy and vz
+    """
+    cx = 2*np.random.rand(3, 3)-1
+    cy = 2*np.random.rand(3, 3)-1
+    cz = 2*np.random.rand(3, 3)-1
+    return cx, cy, cz
+
+
+def save_poly_coeff(name, cx, cy, cz):
+    """Save polynomial coefficients for velocity field to file.
+
+    Args:
+        name (str): name of coefficients
+        cx (np.array): vx coefficients
+        cy (np.array): vy coefficients
+        cz (np.array): vz coefficients
+    """    
+    np.save(name + "_cx.npy", cx)
+    np.save(name + "_cy.npy", cy)
+    np.save(name + "_cz.npy", cz)
+
+def load_poly_coeff(name):
+    """Load polynomial coefficients for velocity field from file.
+
+    Args:
+        name (str): name of coefficients
+
+    Returns:
+        np.array: arrays containing the coefficients for vx, vy and vz
+    """
+    cx = np.load(name + "_cx.npy")
+    cy = np.load(name + "_cy.npy")
+    cz = np.load(name + "_cz.npy")
+
+    return cx, cy, cz

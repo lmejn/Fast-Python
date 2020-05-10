@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from fortran import streamtracer as f_stream
+from fortran_code import streamtracer as f_stream
 from numba_code import streamtracer as n_stream
 from grid import generate_grid
 from plot import plot_streamline_3D, plot_streamline
@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     # np.random.seed(23849234)
 
-    xc, yc, zc, vx, vy, vz = generate_grid(200)
+    xc, yc, zc, vx, vy, vz = generate_grid(200, name='poly')
 
     # Set Seed Point
     xs0 = np.array([0., 0., 0.])
