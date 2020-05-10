@@ -58,4 +58,10 @@ module interpolate
 
     end function trilinear_interp
 
+    double precision function scale_to_grid(xi, x0, x1)
+    double precision, intent(in) :: xi, x0, x1
+    scale_to_grid = (xi - x0)/(x1 - x0)
+    return
+    end function scale_to_grid
+
 end module interpolate
