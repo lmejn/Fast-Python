@@ -1,7 +1,7 @@
 """Test functions for Numba interpolation."""
 import pytest
 import numpy as np
-from fortran import interpolate
+from fortran_code import interpolate
 # from numba_code import interpolate
 
 # Test grid location

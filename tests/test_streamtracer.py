@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 # from numba_code import streamtracer
-from fortran import streamtracer
+from fortran_code import streamtracer
 
 # Check bounds
 
