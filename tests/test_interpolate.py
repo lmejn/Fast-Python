@@ -1,7 +1,7 @@
 """Test functions for Numba interpolation."""
 import pytest
 import numpy as np
-from interpolate import locate_in_grid, trilinear_interp
+from numba_code.interpolate import locate_in_grid, trilinear_interp
 
 # Test grid location
 
