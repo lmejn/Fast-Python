@@ -66,3 +66,20 @@ def trilinear_interp(xl, yl, zl, fc):
     c1 = c01*m_yl + c11*yl
 
     return c0*(1 - zl) + c1*zl
+
+
+@nb.njit('float64(float64, float64, float64)')
+def scale_to_grid(xi, x0, x1):
+    """Return the position scaled to the grid cell.
+
+    If position is in the cell, should return a value between [0, 1].
+
+    Args:
+        xi (float): position to be scaled
+        x0 (float): lower bound of cell
+        x1 (float): uppder bound of cell
+
+    Returns:
+        float: [description]
+    """
+    return (xi - x0)/(x1 - x0)
