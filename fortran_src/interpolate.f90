@@ -36,4 +36,26 @@ module interpolate
         locate_in_grid = 0
         return
     end function locate_in_grid
+
+    double precision function trilinear_interp(xl, yl, zl, fc)
+    double precision, intent(in) :: xl, yl, zl
+    double precision, intent(in), dimension(0:1,0:1,0:1) :: fc
+    double precision :: m_xl, m_yl, c00, c01, c10, c11, c0, c1
+
+    m_xl = 1 - xl
+    m_yl = 1 - yl
+
+    c00 = fc(0, 0, 0)*m_xl + fc(1, 0, 0)*xl
+    c01 = fc(0, 0, 1)*m_xl + fc(1, 0, 1)*xl
+    c10 = fc(0, 1, 0)*m_xl + fc(1, 1, 0)*xl
+    c11 = fc(0, 1, 1)*m_xl + fc(1, 1, 1)*xl
+
+    c0 = c00*m_yl + c10*yl
+    c1 = c01*m_yl + c11*yl
+
+    trilinear_interp = c0*(1 - zl) + c1*zl
+    return
+
+    end function trilinear_interp
+
 end module interpolate

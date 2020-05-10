@@ -1,8 +1,8 @@
 """Test functions for Numba interpolation."""
 import pytest
 import numpy as np
-from numba_code.interpolate import trilinear_interp
 from fortran import interpolate
+# from numba_code import interpolate
 
 # Test grid location
 
@@ -41,7 +41,7 @@ def test_outside_points(x):
 def test_trilinear_middle():
     """Test the middle of the cell, which should be the mean of the vertices."""
     fc = np.random.rand(2, 2, 2)
-    fi = trilinear_interp(0.5, 0.5, 0.5, fc)
+    fi = interpolate.trilinear_interp(0.5, 0.5, 0.5, fc)
 
     assert fc.mean() == pytest.approx(fi)
 
@@ -52,6 +52,6 @@ test_data = [[ix, iy, iz] for ix in i for iy in i for iz in i]
 def test_trilinear_vertex(ix, iy, iz):
     """Test the vertex value."""
     fc = np.random.rand(2, 2, 2)
-    fi = trilinear_interp(float(ix), float(iy), float(iz), fc)
+    fi = interpolate.trilinear_interp(float(ix), float(iy), float(iz), fc)
 
     assert fc[ix, iy, iz] == pytest.approx(fi)
